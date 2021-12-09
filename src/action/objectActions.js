@@ -10,24 +10,11 @@ export const getObject = () => {
 
         axios.get('https://api.nasa.gov/neo/rest/v1/feed?api_key=EXBZOM1VfFdfEqJAemb8hvatr1LOFGMtEHlaYAhU')
             .then(res => {
-                const keys = Object.keys(res.data.near_earth_objects);
-                const key = keys[Math.floor(Math.random()*8)]
-            
-                const entries = Object.entries(res.data.near_earth_objects)
-               
-               const items = entries.filter((entry) => {
-                   return entry.includes(key) 
-                })
-                 const item = items.map(thing => {
-                    return thing[1][Math.floor(Math.random()*thing[1].length)]
-                })
+            const dataEntries = Object.values(res.data.near_earth_objects)
+            const entry = dataEntries[Math.floor(Math.random()*dataEntries.length)]
+            const item = entry[Math.floor(Math.random()*entry.length)]
                 
-                const newObj = {
-                  [key]: item[0]
-                }
-                console.log('object', newObj)
-
-               dispatch({type:FETCH_SUCCESS, payload:newObj})
+               dispatch({type:FETCH_SUCCESS, payload:item})
                 
             })
             .catch(err => {

@@ -1,8 +1,16 @@
 import { FETCH_FAIL, FETCH_START, FETCH_SUCCESS } from "../action/objectActions"
 
 const initialState = {
-    object: {},
-    isFetching: false,
+    object: {
+        estimated_diameter: {
+          feet: {},
+        kilometers: {},
+        meters: {},
+        miles: {}   
+        }
+       
+    },
+    isFetching: true,
     error: ''
 }
 
@@ -19,7 +27,8 @@ export const objectReducer = (state = initialState, action) => {
         case FETCH_SUCCESS:
             return({
                 ...state,
-                object: action.payload
+                object: action.payload,
+                isFetching: false
             })
         break;
         case FETCH_FAIL:
